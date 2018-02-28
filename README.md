@@ -1,4 +1,4 @@
-# Project Title
+# Responsive Images
 
 Reponsive Image according to the device width.
 

@@ -1,4 +1,4 @@
-
+/*! responsiveimages v1.0 */
 let ResponsiveImages=function(){
 	this.images=document.images;
 	console.log(this.images.length);
