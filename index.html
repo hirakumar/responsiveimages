@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Responsive Images</title>
+</head>
+
+<body>
+
+
+<img src="img/img1-xs.png"  data-images={"xl":"img/img1-xl.png","lg":"img/img1-lg.png","md":"img/img1-md.png","sm":"img/img1-sm.png","xs":"img/img1-xs.png"} />
+<img src="img/img2-xs.png"  data-images={"xl":"img/img2-xl.png","xs":"img/img2-xs.png"} />
+<img src="img/img1-md.png" data-images="" />
+<img src="img/img2-xs.png" data-images="asdf" />
+<img src="img/img2-xs.png" />
+<script src="js/responsiveimages.js"></script>
+<script>
+
+let img=new ResponsiveImages();
+img.init();
+
+</script>
+</body>
+
+</html>

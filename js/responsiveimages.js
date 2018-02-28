@@ -1,19 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Responsive Images</title>
-</head>
-
-<body>
-
-
-<img src="img1-xs.jpg"  data-images={"xl":"img1-xl.jpg","lg":"img1-lg.jpg","md":"img1-md.jpg","sm":"img1-sm.jpg","xs":"img1-xs.jpg"} />
-<img src="img2-xs.jpg"  data-images={"xl":"img2-xl.jpg","xs":"img2-xs.jpg"} />
-<img src="img3.jpg" data-images="" />
-<img src="img3.jpg" data-images="asdf" />
-<img src="img3.jpg" />
-<script>
 
 let ResponsiveImages=function(){
 	this.images=document.images;
@@ -27,7 +11,7 @@ let ResponsiveImages=function(){
 	}
 	this.imgResize=function(){
 		if(this.images.length>0){
-				for(var i=0; i<this.images.length; i++){
+				for(let i=0; i<this.images.length; i++){
 					//console.log(typeof this.images[i].dataset.images);
 					try{
 						if(this.images[i].dataset.images){
@@ -36,16 +20,16 @@ let ResponsiveImages=function(){
 							console.log("This width :"+this.w);
 							if(imgJson){
 								if(this.w>=320 && this.w<=576 && imgJson.xs){
-									return this.images[i].src=imgJson.xs;
+									this.images[i].src=imgJson.xs;
 								}else if(this.w>576 && this.w<=768 && imgJson.sm){
-									return this.images[i].src=imgJson.sm;
+									 this.images[i].src=imgJson.sm;
 								}else if(this.w>768 && this.w<=992 && imgJson.md){
-									return this.images[i].src=imgJson.md;
+									 this.images[i].src=imgJson.md;
 								}else if(this.w>=992 && this.w<=1200 && imgJson.lg){
-									return this.images[i].src=imgJson.lg;
+									 this.images[i].src=imgJson.lg;
 								}else if(this.w>1200 && imgJson.xl){
-									
-									return this.images[i].src=imgJson.xl;
+									console.log("XL of "+imgJson.xl);
+									 this.images[i].src=imgJson.xl;
 								}
 							}
 							
@@ -60,14 +44,14 @@ let ResponsiveImages=function(){
 	}
 	this.windowResize=function(e){
 		
-			var w=e.target.innerWidth;
+			let w=e.target.innerWidth;
 			images=document.images;
 			
 			if(images.length>0){
-				for(var i=0; i<images.length; i++){
+				for(let i=0; i<images.length; i++){
 					try{
 						if(images[i].dataset.images){
-							var imgJson =JSON.parse(images[i].dataset.images);
+							 imgJson =JSON.parse(images[i].dataset.images);
 							if(imgJson){
 								if(w>=320 && w<=576 && imgJson.xs){
 									images[i].src=imgJson.xs;
@@ -97,11 +81,3 @@ let ResponsiveImages=function(){
 	}
 	
 }
-
-let img=new ResponsiveImages();
-img.init();
-
-</script>
-</body>
-
-</html>
