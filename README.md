@@ -37,10 +37,6 @@ JAVASCRIPT CODE : Make sure you are puting javascript at bottom of html before c
 
 Please read [CONTRIBUTING.md](https://github.com/hirakumar/responsiveimages) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/hirakumar/responsiveimages)
-
 ## Authors
 
 * **Hira Kumar Maharjan** - *Initial work* - [Responsive Images](https://github.com/hirakumar/responsiveimages)
