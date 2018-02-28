@@ -8,67 +8,97 @@
 <body>
 
 
-<img  src="test.jpg" name="mypic1" data-images={"xl":"img1-lg.jpg","lg":"img1-lg.jpg","md":"img1-md.jpg","sm":"img1-sm.jpg","xs":"img1-xs.jpg"} />
-<img  src="test.jpg" name="mypic2" data-images={"xl":"img2-lg.jpg","lg":"img2-lg.jpg","md":"img2-md.jpg","sm":"img2-sm.jpg","xs":"img2-xs.jpg"} />
-
+<img src="img1-xs.jpg"  data-images={"xl":"img1-xl.jpg","lg":"img1-lg.jpg","md":"img1-md.jpg","sm":"img1-sm.jpg","xs":"img1-xs.jpg"} />
+<img src="img2-xs.jpg"  data-images={"xl":"img2-xl.jpg","xs":"img2-xs.jpg"} />
+<img src="img3.jpg" data-images="" />
+<img src="img3.jpg" data-images="asdf" />
+<img src="img3.jpg" />
 <script>
 
-var ResponsiveImages=function(){
+let ResponsiveImages=function(){
 	this.images=document.images;
+	console.log(this.images.length);
 	this.w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 	
 	this.init=function(){
-	
-	for(var i=0; i<this.images.length; i++){
-			var imgJson =JSON.parse(this.images[i].dataset.images);
-			if(this.w>=320 && this.w<=576){
-				this.images[i].src=imgJson.xs;
-			}else if(this.w>576 && this.w<=768){
-				this.images[i].src=imgJson.sm;
-			}else if(this.w>768 && this.w<=992){
-				this.images[i].src=imgJson.md;
-			}else if(this.w>=992 && this.w<=1200){
-				this.images[i].src=imgJson.lg;
-			}else if(this.w>1200){
-				this.images[i].src=imgJson.xl;
-			}else{
-				this.images[i].src=imgJson.xs;
-			}
-		}
-		this.windowResize();
+		// If we have images
+		this.imgResize();
+		window.addEventListener("resize",this.windowResize.bind(this),false);
 	}
-	this.windowResize=function(){
-		window.addEventListener("resize",resizeEvent,false)
+	this.imgResize=function(){
+		if(this.images.length>0){
+				for(var i=0; i<this.images.length; i++){
+					//console.log(typeof this.images[i].dataset.images);
+					try{
+						if(this.images[i].dataset.images){
+							//console.log("I found dataset");
+							let imgJson =JSON.parse(this.images[i].dataset.images);
+							console.log("This width :"+this.w);
+							if(imgJson){
+								if(this.w>=320 && this.w<=576 && imgJson.xs){
+									return this.images[i].src=imgJson.xs;
+								}else if(this.w>576 && this.w<=768 && imgJson.sm){
+									return this.images[i].src=imgJson.sm;
+								}else if(this.w>768 && this.w<=992 && imgJson.md){
+									return this.images[i].src=imgJson.md;
+								}else if(this.w>=992 && this.w<=1200 && imgJson.lg){
+									return this.images[i].src=imgJson.lg;
+								}else if(this.w>1200 && imgJson.xl){
+									
+									return this.images[i].src=imgJson.xl;
+								}
+							}
+							
+							
+						}
+					}catch(err){
+						return err;
+					}
+				}
+				
+			}
+	}
+	this.windowResize=function(e){
 		
-		function resizeEvent(e){
 			var w=e.target.innerWidth;
 			images=document.images;
-			console.log(w);
-			for(var i=0; i<images.length; i++){
-				var imgJson =JSON.parse(images[i].dataset.images);
-				if(w>=320 && w<=576){
-					images[i].src=imgJson.xs;
-					
-				}else if(w>576 && w<=768){
-					images[i].src=imgJson.sm;
-				}else if(this.w>768 && w<=992){
-					images[i].src=imgJson.md;
-				}else if(w>=992 && w<=1200){
-					images[i].src=imgJson.lg;
-				}else if(w>=1200){
-					images[i].src=imgJson.xl;
-				}else{
-					images[i].src=imgJson.xs;
+			
+			if(images.length>0){
+				for(var i=0; i<images.length; i++){
+					try{
+						if(images[i].dataset.images){
+							var imgJson =JSON.parse(images[i].dataset.images);
+							if(imgJson){
+								if(w>=320 && w<=576 && imgJson.xs){
+									images[i].src=imgJson.xs;
+									
+								}else if(w>576 && w<=768 && imgJson.sm){
+									images[i].src=imgJson.sm;
+								}else if(this.w>768 && w<=992 && imgJson.md){
+									images[i].src=imgJson.md;
+								}else if(w>=992 && w<=1200 && imgJson.lg){
+									images[i].src=imgJson.lg;
+								}else if(w>=1200 && imgJson.xl){
+									images[i].src=imgJson.xl;
+								}
+							}else{
+								return false;
+							}
+						}
+					}catch(err){
+						return err;
+					}
+				
+				
 				}
-			
-			
 			}
-		}
+			
+		
 	}
 	
 }
 
-var img=new ResponsiveImages();
+let img=new ResponsiveImages();
 img.init();
 
 </script>
